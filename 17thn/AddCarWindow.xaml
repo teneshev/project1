@@ -1,0 +1,33 @@
+﻿<Window x:Class="_17thn.AddCarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_17thn"
+        mc:Ignorable="d"
+        Title="AddCarWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Columns="2">
+            <TextBlock>Модель</TextBlock>
+            <ComboBox  x:Name="CmbCarModel" DisplayMemberPath="car_model" SelectedItem="{Binding CarModel}"></ComboBox>
+            <TextBlock>Цвет</TextBlock>
+            <ComboBox x:Name="CmbColor" DisplayMemberPath="car_color" SelectedItem="{Binding CarColor}"></ComboBox>
+            <TextBlock>Год выпуска</TextBlock>
+            <TextBox x:Name="TxtYearOfRelease" Text="{Binding year_of_release}"></TextBox>
+            <TextBlock>Госномер</TextBlock>
+            <TextBox x:Name="TxtStateNumber" Text="{Binding state_number}"></TextBox>
+            <TextBlock>Страховая стоимость</TextBlock>
+            <TextBox x:Name="TxtInsuranceCost" Text="{Binding insurance_cost}"></TextBox>
+            <TextBlock>Страховой взнос</TextBlock>
+            <TextBox x:Name="TxtInsurancePre" Text="{Binding insurance_premium}"></TextBox>
+            <TextBlock>Стоимость одного дня проката</TextBlock>
+            <TextBox x:Name="TxtOneDayRental" Text="{Binding one_day_rental}"></TextBox>
+        </UniformGrid>
+        <Button x:Name="BtnSaveData" Grid.Row="1" Click="BtnSaveData_Click">Сохранить</Button>
+    </Grid>
+</Window>

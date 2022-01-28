@@ -1,0 +1,40 @@
+﻿<Window x:Class="_17thn.CarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_17thn"
+        mc:Ignorable="d"
+        Title="CarWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="BtnAddData" Content="Добавить" Click="BtnAddData_Click"/>
+            <Button x:Name="BtnDeleteData" Content="Удалить" Click="BtnDeleteData_Click"/>
+
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="DataGridCars" ColumnWidth="*" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Модель" Binding="{Binding CarModel.car_model}"/>
+                <DataGridTextColumn Header="Цвет" Binding="{Binding CarColor.car_color}"/>
+                <DataGridTextColumn Header="Год выпуска" Binding="{Binding year_of_release}"/>
+                <DataGridTextColumn Header="Госномер" Binding="{Binding state_number}"/>
+                <DataGridTextColumn Header="Страховая стоимость" Binding="{Binding insurance_cost}"/>
+                <DataGridTextColumn Header="Страховой взнос" Binding="{Binding insurance_premium}"/>
+                <DataGridTextColumn Header="Стоимость одного дня проката" Binding="{Binding one_day_rental}"/>
+                <DataGridTemplateColumn Header="Редактировать">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BtnEditData" Click="BtnEditData_Click">Изменить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

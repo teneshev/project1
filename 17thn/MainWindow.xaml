@@ -1,0 +1,39 @@
+﻿<Window x:Class="_17thn.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_17thn"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="BtnAddData" Content="Добавить" Click="BtnAddData_Click"/>
+            <Button x:Name="BtnDeleteData" Content="Удалить" Click="BtnDeleteData_Click"/>
+            <Button x:Name="BtnAddtableData" Content="Клиенты" Click="BtnAddtableData_Click"/>
+            <Button x:Name="BtnAddtable1Data" Content="Авто" Click="BtnAddtable1Data_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="DataGridRental" ColumnWidth="*" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.surname}"/>
+                <DataGridTextColumn Header="МодельМашины" Binding="{Binding Car.id_car_model}"/>
+                <DataGridTextColumn Header="Дата начала проката" Binding="{Binding rental_start_date, StringFormat={}{0:dd.MMMM.yyyy}}"/>
+                <DataGridTextColumn Header="Количество дней проката" Binding="{Binding number_of_rental_days}"/>
+                <DataGridTextColumn Header="Стоимость проката" Binding="{Binding rental_price}"/>
+                <DataGridTemplateColumn Header="Редактировать">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BtnEditData" Click="BtnEditData_Click">Изменить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

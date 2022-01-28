@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище sssModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="id_car" />
+          </Key>
+          <Property Name="id_car" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_car_model" Type="int" />
+          <Property Name="id_color" Type="int" />
+          <Property Name="year_of_release" Type="nchar" MaxLength="5" />
+          <Property Name="state_number" Type="nchar" MaxLength="30" />
+          <Property Name="insurance_cost" Type="nvarchar" MaxLength="50" />
+          <Property Name="insurance_premium" Type="nvarchar" MaxLength="50" />
+          <Property Name="one_day_rental" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CarColor">
+          <Key>
+            <PropertyRef Name="id_color" />
+          </Key>
+          <Property Name="id_color" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="car_color" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="id_car_model" />
+          </Key>
+          <Property Name="id_car_model" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="car_model" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="nchar" MaxLength="40" />
+          <Property Name="name" Type="nchar" MaxLength="40" />
+          <Property Name="patronymic" Type="nchar" MaxLength="40" />
+          <Property Name="passport_serial" Type="nvarchar" MaxLength="50" />
+          <Property Name="passport_number" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="id_rental" />
+          </Key>
+          <Property Name="id_rental" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" />
+          <Property Name="id_car" Type="int" />
+          <Property Name="rental_start_date" Type="date" />
+          <Property Name="number_of_rental_days" Type="nvarchar" MaxLength="50" />
+          <Property Name="rental_price" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Car_CarColor">
+          <End Role="CarColor" Type="Self.CarColor" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarColor">
+              <PropertyRef Name="id_color" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="id_color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_CarModel">
+          <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarModel">
+              <PropertyRef Name="id_car_model" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="id_car_model" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="id_car" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="id_car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище sssModelContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarColor" EntityType="Self.CarColor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarModel" EntityType="Self.CarModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rental" EntityType="Self.Rental" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Car_CarColor" Association="Self.FK_Car_CarColor">
+            <End Role="CarColor" EntitySet="CarColor" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_CarModel" Association="Self.FK_Car_CarModel">
+            <End Role="CarModel" EntitySet="CarModel" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Car" Association="Self.FK_Rental_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Client" Association="Self.FK_Rental_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sssModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="id_car" />
+          </Key>
+          <Property Name="id_car" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_car_model" Type="Int32" />
+          <Property Name="id_color" Type="Int32" />
+          <Property Name="year_of_release" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="state_number" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="insurance_cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="insurance_premium" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="one_day_rental" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CarColor" Relationship="Self.FK_Car_CarColor" FromRole="Car" ToRole="CarColor" />
+          <NavigationProperty Name="CarModel" Relationship="Self.FK_Car_CarModel" FromRole="Car" ToRole="CarModel" />
+          <NavigationProperty Name="Rental" Relationship="Self.FK_Rental_Car" FromRole="Car" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="CarColor">
+          <Key>
+            <PropertyRef Name="id_color" />
+          </Key>
+          <Property Name="id_color" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="car_color" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Car_CarColor" FromRole="CarColor" ToRole="Car" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="id_car_model" />
+          </Key>
+          <Property Name="id_car_model" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="car_model" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Car_CarModel" FromRole="CarModel" ToRole="Car" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="patronymic" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="passport_serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="passport_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rental" Relationship="Self.FK_Rental_Client" FromRole="Client" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="id_rental" />
+          </Key>
+          <Property Name="id_rental" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" />
+          <Property Name="id_car" Type="Int32" />
+          <Property Name="rental_start_date" Type="DateTime" Precision="0" />
+          <Property Name="number_of_rental_days" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rental_price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Rental_Car" FromRole="Rental" ToRole="Car" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Rental_Client" FromRole="Rental" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_Car_CarColor">
+          <End Role="CarColor" Type="Self.CarColor" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarColor">
+              <PropertyRef Name="id_color" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="id_color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_CarModel">
+          <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarModel">
+              <PropertyRef Name="id_car_model" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="id_car_model" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="id_car" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="id_car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sssEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Car" EntityType="Self.Car" />
+          <EntitySet Name="CarColor" EntityType="Self.CarColor" />
+          <EntitySet Name="CarModel" EntityType="Self.CarModel" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Rental" EntityType="Self.Rental" />
+          <AssociationSet Name="FK_Car_CarColor" Association="Self.FK_Car_CarColor">
+            <End Role="CarColor" EntitySet="CarColor" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_CarModel" Association="Self.FK_Car_CarModel">
+            <End Role="CarModel" EntitySet="CarModel" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Car" Association="Self.FK_Rental_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Client" Association="Self.FK_Rental_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище sssModelContainer" CdmEntityContainer="sssEntities">
+          <EntitySetMapping Name="Car">
+            <EntityTypeMapping TypeName="sssModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="id_car" ColumnName="id_car" />
+                <ScalarProperty Name="id_car_model" ColumnName="id_car_model" />
+                <ScalarProperty Name="id_color" ColumnName="id_color" />
+                <ScalarProperty Name="year_of_release" ColumnName="year_of_release" />
+                <ScalarProperty Name="state_number" ColumnName="state_number" />
+                <ScalarProperty Name="insurance_cost" ColumnName="insurance_cost" />
+                <ScalarProperty Name="insurance_premium" ColumnName="insurance_premium" />
+                <ScalarProperty Name="one_day_rental" ColumnName="one_day_rental" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarColor">
+            <EntityTypeMapping TypeName="sssModel.CarColor">
+              <MappingFragment StoreEntitySet="CarColor">
+                <ScalarProperty Name="id_color" ColumnName="id_color" />
+                <ScalarProperty Name="car_color" ColumnName="car_color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarModel">
+            <EntityTypeMapping TypeName="sssModel.CarModel">
+              <MappingFragment StoreEntitySet="CarModel">
+                <ScalarProperty Name="id_car_model" ColumnName="id_car_model" />
+                <ScalarProperty Name="car_model" ColumnName="car_model" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="sssModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="passport_serial" ColumnName="passport_serial" />
+                <ScalarProperty Name="passport_number" ColumnName="passport_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rental">
+            <EntityTypeMapping TypeName="sssModel.Rental">
+              <MappingFragment StoreEntitySet="Rental">
+                <ScalarProperty Name="id_rental" ColumnName="id_rental" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_car" ColumnName="id_car" />
+                <ScalarProperty Name="rental_start_date" ColumnName="rental_start_date" />
+                <ScalarProperty Name="number_of_rental_days" ColumnName="number_of_rental_days" />
+                <ScalarProperty Name="rental_price" ColumnName="rental_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

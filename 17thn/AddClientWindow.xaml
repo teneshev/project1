@@ -1,0 +1,29 @@
+﻿<Window x:Class="_17thn.AddClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_17thn"
+        mc:Ignorable="d"
+        Title="AddClientWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Columns="2">
+            <TextBlock>Фамилия</TextBlock>
+            <TextBox x:Name="Txtsurname" Text="{Binding surname}"></TextBox>
+            <TextBlock>Имя</TextBlock>
+            <TextBox x:Name="Txtname" Text="{Binding name}"></TextBox>
+            <TextBlock>Отчество</TextBlock>
+            <TextBox x:Name="Txtpatronymic" Text="{Binding patronymic}"></TextBox>
+            <TextBlock>Серия паспорта</TextBlock>
+            <TextBox x:Name="Txtnumber_of_rental" Text="{Binding passport_serial}"></TextBox>
+            <TextBlock>Номер паспорта</TextBlock>
+            <TextBox x:Name="Txtrental_price" Text="{Binding passport_number}"></TextBox>
+        </UniformGrid>
+        <Button x:Name="BtnSaveData" Grid.Row="1" Click="BtnSaveData_Click">Сохранить</Button>
+    </Grid>
+</Window>
